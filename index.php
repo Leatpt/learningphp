@@ -12,18 +12,14 @@ class Box {
     }
 }
 
-$box1 = new Box();
-$box1 ->width = 1;
-$box1 ->height = 2;
-$box1 ->length = 3;
-$box1 ->material = 'Wood';
-$box1 ->color = 'Punane';
-var_dump($box1);
+$num1 = 4;
+$num2 = $num1;
+$num2 = 7;
+var_dump($num1, $num2);
 
-$box2 = new Box();
-$box2 ->width = 3;
-$box2 ->height = 4;
-$box2 ->length = 5;
-$box2 ->material = 'Plastic';
-$box2 ->color = 'Green';
-var_dump($box2);
+$box1 = new Box();
+$box1->height = 4;
+$box2 = clone $box1;
+$box2->height = 7;
+var_dump($box1, $box2);
+$box1->describe();
