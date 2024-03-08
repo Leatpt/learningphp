@@ -1,41 +1,45 @@
 <?php
 // plug-in: PHP extension pack ja PHP Intelephense
-class Box {
-    public $width;
-    public $height;
-    public $length;
-    public $material;
-    public $color;
 
-    public function describe(){
-        echo 'width: ' . $this->width . ' height: ' . $this->height . ' length: ' . $this->length;
-    }
-}
 
-class MetalBox extends Box{
-    use HasSmell;
-    public $material = 'Metal';
-    public $weight;
+//library - me saime sellise klassi
 
-    public function volume(){
-        return $this->width * $this->height * $this->length;
-    }
-}
+class Job {
+    public function task(Logger $logger){
+            for($i = 0; $i < 10; $i++){
+            $logger->log("task done! #$i\n");
 
-class Animal {
-    use HasSmell;
-}
-
-trait HasSmell {
-    public $smell;
-    public function sniff(){
-        if($this->smell !== 'Bad'){
-            return 'Good!';
+// kahekordsed jutumärgid, kui tahame kasutada \n (line break)
+// või muid spetsiaalseid stringi funktsioone
         }
-        return 'Bad!';
+    }
+}
+interface Logger {
+    public function log($message);
+}
+
+class ConsoleLogger implements Logger{
+    public function log($message){
+        echo $message . "\n";
     }
 }
 
-$MetalBox1 = new MetalBox();
-var_dump($MetalBox1);
-$MetalBox1->sniff();
+// usage code - me tahame, et see klass teeks mingeid asju
+
+class NothingLogger implements Logger{
+    public function log($message){
+
+    }
+}
+
+class FileLogger implements Logger{
+    public function log($message){
+        $file = fopen("log.txt", "a");
+        fwrite($file, $message . "\n");
+        fclose($file);
+    }
+}
+
+$job = new Job();
+$logger = new FileLogger;
+$job->task($logger);
