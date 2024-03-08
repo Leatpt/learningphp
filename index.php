@@ -12,14 +12,30 @@ class Box {
     }
 }
 
-$num1 = 4;
-$num2 = $num1;
-$num2 = 7;
-var_dump($num1, $num2);
+class MetalBox extends Box{
+    use HasSmell;
+    public $material = 'Metal';
+    public $weight;
 
-$box1 = new Box();
-$box1->height = 4;
-$box2 = clone $box1;
-$box2->height = 7;
-var_dump($box1, $box2);
-$box1->describe();
+    public function volume(){
+        return $this->width * $this->height * $this->length;
+    }
+}
+
+class Animal {
+    use HasSmell;
+}
+
+trait HasSmell {
+    public $smell;
+    public function sniff(){
+        if($this->smell !== 'Bad'){
+            return 'Good!';
+        }
+        return 'Bad!';
+    }
+}
+
+$MetalBox1 = new MetalBox();
+var_dump($MetalBox1);
+$MetalBox1->sniff();
