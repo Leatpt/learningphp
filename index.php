@@ -2,8 +2,10 @@
 // plug-in: PHP extension pack ja PHP Intelephense
 
 class Box {
-    public $color;
+
     public $size;
+    private $color;
+    protected $width;
     public static $number;
 
 //staatilise funtsiooni sees ma ei tohi kasutada võtmesõna "this"
@@ -21,15 +23,23 @@ class Box {
     public static function me2(){
         var_dump(static::class);
     }
+    public function getWidth(){
+        var_dump($this->width);
+    }
 }
 
 class MetalBox extends Box{
-
+    public function getWidth2(){
+        var_dump($this->width);
+    }
 }
 
 $box1 = new Box();
 $box1->size = 10;
+$box1->getWidth();
 Box::$number = 12;
+$metal1 = new MetalBox();
+$metal1->getWidth2();
 $box1->getSize();
 Box::getNumber();
 //$box2 = new Box();
